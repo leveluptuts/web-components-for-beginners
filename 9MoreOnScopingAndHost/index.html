@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <style>
+      h3 {
+        color: red;
+      }
+    </style>
+    <h3>Hello World</h3>
+    <div id="container"></div>
+
+    <lut-card>
+      <p>Something is up</p>
+      <button>Ok!</button>
+    </lut-card>
+
+    <template id="template">
+      <style>
+        :host {
+          box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.3);
+          border-radius: 10px;
+          padding: 10px;
+          display: block;
+        }
+      </style>
+      <h3>Caution!</h3>
+      <slot />
+    </template>
+
+    <script>
+      class Card extends HTMLElement {
+        constructor() {
+          super();
+          // create a shadow dom
+          const shadow = this.attachShadow({ mode: "open" });
+          // create an element
+          const template = document.getElementById("template");
+          const clone = template.content.cloneNode(true);
+          // append the element to the shadow dom
+          shadow.appendChild(clone);
+        }
+      }
+      customElements.define("lut-card", Card);
+
+      // const template = document.getElementById("first-template");
+      //   const container = document.getElementById("container");
+
+      // When we clone, they are totally separate.
+      // .content of the template, is a document fragment. not an html element.
+      //   const clone = template.content.cloneNode(true);
+      //   clone.addEventListener("click", () => {
+      //     alert("clicked clone 1");
+      //   });
+      //   container.appendChild(clone);
+
+      //   const clone2 = template.content.firstElementChild.cloneNode(true);
+      //   clone2.addEventListener("click", () => {
+      //     alert("clicked clone 2");
+      //   });
+      //   container.appendChild(clone2);
+    </script>
+  </body>
+</html>

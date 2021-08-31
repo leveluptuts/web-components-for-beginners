@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <style></style>
+
+    <lut-tabs>
+      <div role="tablist">
+        <button role="tab" aria-selected>One</button>
+        <button role="tab">Two</button>
+        <button role="tab">Three</button>
+      </div>
+      <div role="panel" aria-selected>One</div>
+      <div role="panel" hidden>Two</div>
+      <div role="panel" hidden>Three</div>
+    </lut-tabs>
+
+    <script>
+      function getTabs() {
+        const tabs = Array.from(
+          document.querySelectorAll('[role="tablist"] [role="tab"]')
+        );
+        return tabs;
+      }
+
+      function getPanels() {
+        const panels = Array.from(document.querySelectorAll('[role="panel"]'));
+        return panels;
+      }
+
+      function selectTab(element, index) {
+        const tabs = getTabs();
+        const panels = getPanels();
+
+        for (const tab of tabs) {
+          tab.setAttribute("aria-selected", false);
+        }
+
+        for (const panel of panels) {
+          panel.hidden = true;
+          panel.setAttribute("aria-selected", false);
+        }
+
+        const selectedTab = tabs[index];
+        const selectedPanel = panels[index];
+
+        selectedTab.focus();
+        selectedTab.setAttribute("aria-selected", true);
+
+        selectedPanel.hidden = false;
+        selectedPanel.setAttribute("aria-selected", true);
+      }
+
+      class Tabs extends HTMLElement {
+        constructor() {
+          super();
+
+          this.addEventListener("click", (event) => {
+            // Get all tabs
+            const tabs = getTabs();
+            // Find tab that was clicked
+            const tab = event.target.closest('[role="tab"]');
+            // Get index of tab that was clicked
+            const index = tabs.indexOf(tab);
+            selectTab(this, index);
+          });
+        }
+
+        connectedCallback() {}
+      }
+      customElements.define("lut-tabs", Tabs);
+    </script>
+  </body>
+</html>

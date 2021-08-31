@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Hello World</h1>
+    <div id="container"></div>
+
+    <template id="first-template">
+      <h2>This is the first template</h2>
+    </template>
+
+    <script>
+      const template = document.getElementById("first-template");
+      const container = document.getElementById("container");
+
+      // When we clone, they are totally separate.
+      // .content of the template, is a document fragment. not an html element.
+      const clone = template.content.cloneNode(true);
+      clone.addEventListener("click", () => {
+        alert("clicked clone 1");
+      });
+      container.appendChild(clone);
+
+      const clone2 = template.content.firstElementChild.cloneNode(true);
+      clone2.addEventListener("click", () => {
+        alert("clicked clone 2");
+      });
+      container.appendChild(clone2);
+    </script>
+  </body>
+</html>

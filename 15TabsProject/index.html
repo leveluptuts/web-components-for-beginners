@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <style></style>
+
+    <lut-tabs>
+      <div role="tablist">
+        <button role="tab" aria-selected>One</button
+        ><button role="tab">Two</button><button role="tab">Three</button>
+      </div>
+      <div role="panel" aria-selected>One</div>
+      <div role="panel" hidden>Two</div>
+      <div role="panel" hidden>Three</div>
+    </lut-tabs>
+
+    <script>
+      class Tabs extends HTMLElement {
+        constructor() {
+          super();
+        }
+      }
+      customElements.define("lut-tabs", Tabs);
+    </script>
+  </body>
+</html>
